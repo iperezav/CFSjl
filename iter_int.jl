@@ -36,13 +36,13 @@ for i in 1:Ntrunc-1
     end_current_block = Int(ctrEtemp[i+2])
     num_prev_block = end_prev_block - start_prev_block
     num_current_block = end_current_block - end_prev_block
-    print("i: ", i, " start_prev_block: ", start_prev_block, " end_prev_block: ", end_prev_block, " end_current_block: ", end_current_block, " num_prev_block: ", num_prev_block, " num_current_block: ", num_current_block)
+    #print("i: ", i, " start_prev_block: ", start_prev_block, " end_prev_block: ", end_prev_block, " end_current_block: ", end_current_block, " num_prev_block: ", num_prev_block, " num_current_block: ", num_current_block)
     U_block = repeat(utemp, inner=(num_prev_block,1)) # inputs for current permutation
-    print("U_block size: ", size(U_block))
+    #print("U_block size: ", size(U_block))
     prev_int_block = repeat(Etemp[start_prev_block+1:end_prev_block,:], outer=(num_input,1)) # block of previous permutations
-    print("prev_int_block size: ", size(prev_int_block))
+    #print("prev_int_block size: ", size(prev_int_block))
     current_int_block = cumsum(U_block.*prev_int_block, dims = 2)*dt
-    print(size(current_int_block))
+    #print(size(current_int_block))
     Etemp[end_prev_block+1:end_current_block,:] = hcat(zeros(num_current_block,1), current_int_block[:,begin:end-1])
 
 end
