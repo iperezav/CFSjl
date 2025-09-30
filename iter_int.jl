@@ -27,7 +27,8 @@ end
 
 sum_acc = cumsum(utemp, dims=2)*dt
 
-Etemp[1:num_input,begin:end] = hcat(zeros(num_input, 1), sum_acc[:,begin:end-1])
+#Etemp[1:num_input,begin:end] = hcat(zeros(num_input, 1), sum_acc[:,begin:end-1])
+Etemp[1:num_input,:] = sum_acc
 
 for i in 1:Ntrunc-1
     
@@ -43,7 +44,8 @@ for i in 1:Ntrunc-1
     #print("prev_int_block size: ", size(prev_int_block))
     current_int_block = cumsum(U_block.*prev_int_block, dims = 2)*dt
     #print(size(current_int_block))
-    Etemp[end_prev_block+1:end_current_block,:] = hcat(zeros(num_current_block,1), current_int_block[:,begin:end-1])
+    #Etemp[end_prev_block+1:end_current_block,:] = hcat(zeros(num_current_block,1), current_int_block[:,begin:end-1])
+    Etemp[end_prev_block+1:end_current_block,:] = current_int_block
 
 end
 
